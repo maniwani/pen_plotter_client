@@ -12,7 +12,7 @@ def plot(svg: str):
     ad.plot_setup(svg)
     # TODO: enable this for the demo, probably easier to see on camera
     ad.options.auto_rotate = True
-    ad.options.speed_pendown = 40
+    # ad.options.speed_pendown = 40
     # ad.options.speed_penup = 75
     ad.plot_run()
 
