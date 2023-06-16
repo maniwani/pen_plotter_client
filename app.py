@@ -10,9 +10,8 @@ def plot(svg: str):
 
     # plot the svg
     ad.plot_setup(svg)
-    # TODO: enable this for the demo, probably easier to see on camera
-    ad.options.auto_rotate = True
-    # ad.options.speed_pendown = 40
+    ad.options.auto_rotate = False
+    ad.options.speed_pendown = 40
     # ad.options.speed_penup = 75
     ad.plot_run()
 
@@ -25,11 +24,14 @@ def plot(svg: str):
 
 sio = socketio.AsyncClient()
 
+num = 0
+
 
 @sio.event
 async def connect():
+    global num
     print("Connected!")
-    await sio.emit("join", {"room": "plotter"})
+    await sio.emit("join", {f"room": "plotter"})
 
 
 @sio.event
@@ -50,7 +52,9 @@ async def on_plot(data):
 
 
 async def main():
-    uri = "<insert url here>"
+    global num
+    uri = input("Please enter the URL (e.g. https://plotter.offkaiexpo.com): ")
+    num = input("Please enter the number on this pen plotter: ")
 
     # connect to server
     await sio.connect(uri)
